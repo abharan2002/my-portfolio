@@ -254,37 +254,56 @@ h1,h2,h3,h4,h5
 /* end work */
 
 /* start about */
-#about h4
-    {
-        padding: 15px 0;
-		color: #86c232;
-    }
-#about .progress
-    {
-        border-radius: 4px;
-        background: #ffffff;
-        height: 4px;
-    }
-#about .progress .progress-bar-danger
-    {
-        background: #61892f;
-    }
-#about .text-top
-    {
-        padding-top: 50px;
-    }
-#about span
-    {
+#about h4 {
+    padding: 15px 0;
+    color: #86c232;
+}
+
+#about .progress {
+    border-radius: 4px;
+    background: #ffffff;
+    height: 4px;
+}
+
+#about .progress .progress-bar-danger {
+    background: #61892f;
+}
+
+#about .text-top {
+    padding-top: 50px;
+}
+
+#about span {
+    color: #ffffff;
+    font-weight: bold;
+    display: block;
+    padding-bottom: 6px;
+}
+
+#about small {
+    font-weight: bold;
+    float: right;
+}
+
+/* New CSS for Download CV button */
+#about .btn {
+    background: transparent;
+        border: 2px solid #ffffff;
         color: #ffffff;
+        font-size: 16px;
         font-weight: bold;
-        display: block;
-        padding-bottom: 6px;
-    }
-#about small
-    {
-        font-weight: bold;
-        float: right;
-    }
+        width: 180px;
+        height: 60px;
+        margin-top: 40px;
+        padding-top: 18px;
+        transition: all 0.4s ease-in-out;
+}
+
+#about .btn:hover {
+    background: #61892f;
+        border-color: transparent;
+}
+
 /* end about */
 
 /* start portfolio */
