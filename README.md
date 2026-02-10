@@ -2,4 +2,4 @@
 
 # Open my portfolio live :
 
-https:abharan.space
+https://abharan.space
