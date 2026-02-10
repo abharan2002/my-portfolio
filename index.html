@@ -1,327 +1,559 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Abharan Gupta | Backend Engineer</title>
+    <meta
+      name="description"
+      content="Portfolio of Abharan Gupta, a backend-focused engineer building scalable Java and Spring Boot systems, real-time pipelines, and polished web experiences."
+    />
+    <script>
+      (() => {
+        try {
+          const savedTheme = localStorage.getItem("abharan-theme");
+          if (savedTheme) {
+            document.documentElement.setAttribute("data-theme", savedTheme);
+          }
+        } catch (error) {
+          // Ignore storage access failures and continue with default theme.
+        }
+      })();
+    </script>
 
-		<title>Abharan's Portfolio</title>
-        
-		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/templatemo-style.css" />
+  </head>
+  <body>
+    <div class="bg-shape bg-shape-1" aria-hidden="true"></div>
+    <div class="bg-shape bg-shape-2" aria-hidden="true"></div>
 
-		<!-- animate -->
-		<link rel="stylesheet" href="css/animate.min.css">
-		<!-- bootstrap -->
-		<link rel="stylesheet" href="css/bootstrap.min.css">
-		<!-- font-awesome -->
-		<link rel="stylesheet" href="css/font-awesome.min.css">
-		<!-- google font -->
-		<link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700,800' rel='stylesheet' type='text/css'>
-		<!-- fullpage -->
-		<link rel="stylesheet" href="css/jquery.fullPage.css">
-		<!-- custom -->
-		<link rel="stylesheet" href="css/templatemo-style.css">
+    <header class="site-header" id="top">
+      <nav class="nav-wrap container">
+        <a class="brand" href="#top" aria-label="Home">
+          <span class="brand-mark">&lt;/&gt;</span>
+          <span class="brand-text">Abharan Gupta</span>
+        </a>
 
-	</head>
-	<body>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#expertise">Expertise</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
 
-	<div id="fullpage">
+        <div class="nav-actions">
+          <button
+            class="command-toggle"
+            type="button"
+            aria-label="Open quick navigation"
+            aria-haspopup="dialog"
+            aria-controls="command-palette"
+            aria-expanded="false"
+          >
+            <i class="fa fa-terminal" aria-hidden="true"></i>
+            <span>/</span>
+          </button>
 
-		<!-- start home -->
-		<div id="home" class="section">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-2"></div>
-					<div class="col-md-8 wow fadeIn" data-wow-delay="0.9s">
-						<h1>Abharan Gupta</h1>
-						<h2 class="rotate">DESIGNER &AMP; DEVELOPER, PROJECT LEADER</h2>
-						<p>I am an experienced Software Engineer specializing in Java, Spring Boot, and Front End Applications.</p>
-						<a href="#work" class="btn btn-default smoothScroll wow fadeInUp" data-wow-delay="1s">Get started</a>
-					</div>
-					<div class="col-md-2"></div>
-				</div>
-			</div>
-		</div>
-		<!-- end home -->
+          <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+            <i class="fa fa-moon-o icon-moon" aria-hidden="true"></i>
+            <i class="fa fa-sun-o icon-sun" aria-hidden="true"></i>
+          </button>
 
-		<!-- start work -->
-<div id="work" class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 wow bounce">
-                <h2>WHAT I DO</h2>
-            </div>
-        </div>  
-        
-        <div class="row">
-            <div class="col-md-4 col-xs-11 wow fadeInUp" data-wow-delay="0.6s">
-                <div class="media">
-                    <div class="media-object media-left">
-                        <i class="fa fa-code"></i>
-                    </div>
-                    <div class="media-body">
-                        <h3 class="media-heading">Full Stack Development</h3>
-                        <p>I specialize in building scalable full-stack applications using Spring Boot, Kafka, ReactJS, and more.</p>
-                    </div>
-                </div>
-            </div>
+          <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </nav>
+    </header>
 
-            <div class="col-md-4 col-xs-11 wow fadeInUp" data-wow-delay="0.6s">
-                <div class="media">
-                    <div class="media-object media-left">
-                        <i class="fa fa-laptop"></i>
-                    </div>
-                    <div class="media-body">
-                        <h3 class="media-heading">Back-End Optimization</h3>
-                        <p>Expert in optimizing system performance, reducing latency, and enhancing server scalability by up to 50%.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 col-xs-11 wow fadeInUp" data-wow-delay="0.6s">
-                <div class="media">
-                    <div class="media-object media-left">
-                        <i class="fa fa-database"></i>
-                    </div>
-                    <div class="media-body">
-                        <h3 class="media-heading">Database & Caching</h3>
-                        <p>Experienced with MySQL, MongoDB, and Redis, implementing caching strategies to improve query performance by 60%.</p>
-                    </div>
-                </div>
-            </div>
+    <main>
+      <!-- Hero -->
+      <section class="hero section container" id="about">
+        <div class="hero-copy reveal" data-delay="0">
+          <p class="eyebrow">Backend Engineer · Full Stack Delivery</p>
+          <h1>
+            Building
+            <span class="highlight">Java + Spring Boot systems</span>
+            that stay fast and reliable in production
+          </h1>
+          <p class="lede">
+            I am Abharan, an SDE II at Kapture CX. I build backend-first products with Java, Spring Boot, Kafka, Redis,
+            and cloud services, with a strong focus on reliability, scale, and practical business outcomes.
+          </p>
         </div>
 
-        <div class="row">
-            <div class="col-md-4 col-xs-11 wow fadeInUp" data-wow-delay="0.6s">
-                <div class="media">
-                    <div class="media-object media-left">
-                        <i class="fa fa-cloud"></i>
-                    </div>
-                    <div class="media-body">
-                        <h3 class="media-heading">Cloud Platforms</h3>
-                        <p>Proficient in deploying scalable applications on AWS and GCP, enhancing uptime and reducing deployment time by 30%.</p>
-                    </div>
-                </div>
-            </div>
+        <div class="hero-right reveal" data-delay="150">
+          <aside class="hero-reveal" aria-label="Interactive landing preview">
+            <div
+              id="landing-reveal-widget"
+              class="reveal-widget hero-reveal-widget"
+              data-top-image="images/hero.png"
+              data-bottom-image="images/hero-bg.png"
+              data-brush-size="0.14"
+              data-brush-softness="0.84"
+              data-brush-strength="0.9"
+              data-decay="true"
+              data-decay-rate="0.2"
+              data-mask-scale="0.7"
+              aria-label="Interactive landing image reveal"
+            ></div>
+          </aside>
 
-            <div class="col-md-4 col-xs-11 wow fadeInUp" data-wow-delay="0.6s">
-                <div class="media">
-                    <div class="media-object media-left">
-                        <i class="fa fa-terminal"></i>
-                    </div>
-                    <div class="media-body">
-                        <h3 class="media-heading">Technical Tools</h3>
-                        <p>Fluent in using tools like VS Code, Git, Bitbucket, IntelliJ, and Jira for efficient project management and version control.</p>
-                    </div>
-                </div>
-            </div>
+          <section class="hero-actions-panel" aria-label="Primary actions and highlights">
+            <div class="hero-actions-below">
+              <div class="hero-cta">
+                <a class="btn btn-primary" href="mailto:help@abharan.space?subject=Hiring%20Inquiry%20for%20Abharan%20Gupta"
+                  >Hire Me</a
+                >
+                <a class="btn btn-secondary" href="#projects">See Projects</a>
+              </div>
 
-            <div class="col-md-4 col-xs-11 wow fadeInUp" data-wow-delay="0.6s">
-                <div class="media">
-                    <div class="media-object media-left">
-                        <i class="fa fa-cogs"></i>
-                    </div>
-                    <div class="media-body">
-                        <h3 class="media-heading">API Integration</h3>
-                        <p>Skilled in integrating APIs with third-party platforms like WhatsApp, Instagram, and more, boosting efficiency by 30%.</p>
-                    </div>
-                </div>
+              <div class="hero-social" aria-label="Professional profiles">
+                <a href="https://www.linkedin.com/in/abharan/" target="_blank" rel="noopener noreferrer"
+                  ><i class="fa fa-linkedin" aria-hidden="true"></i> LinkedIn</a
+                >
+                <a href="https://github.com/abharan2002" target="_blank" rel="noopener noreferrer"
+                  ><i class="fa fa-github" aria-hidden="true"></i> GitHub</a
+                >
+                <a href="https://abharan.space" target="_blank" rel="noopener noreferrer"
+                  ><i class="fa fa-globe" aria-hidden="true"></i> Portfolio</a
+                >
+                <a
+                  href="resume/Abharan_Gupta_Resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><i class="fa fa-file-text-o" aria-hidden="true"></i> Resume</a
+                >
+              </div>
+
+              <ul class="quick-meta" aria-label="Key highlights">
+                <li><strong>70%</strong> client workflow time reduction with bulk upload tooling</li>
+                <li><strong>90%</strong> latency reduction in real-time notification delivery</li>
+                <li><strong>10,000+</strong> events per second handled in peak pipelines</li>
+              </ul>
             </div>
+          </section>
         </div>
+      </section>
+
+      <!-- Impact -->
+      <section class="impact section container">
+        <article class="metric-card reveal" data-delay="0">
+          <p class="metric-value">99.9%</p>
+          <h2>Service reliability</h2>
+          <p>Built dependable services for integrations teams use every day.</p>
+        </article>
+        <article class="metric-card reveal" data-delay="80">
+          <p class="metric-value">60%</p>
+          <h2>Query improvements</h2>
+          <p>Improved query speed using practical caching and schema tuning.</p>
+        </article>
+        <article class="metric-card reveal" data-delay="160">
+          <p class="metric-value">30%</p>
+          <h2>Faster release velocity</h2>
+          <p>Helped teams ship faster through stronger automation and testing discipline.</p>
+        </article>
+      </section>
+
+      <!-- Experience -->
+      <section class="section container" id="experience">
+        <div class="section-heading reveal" data-delay="0">
+          <p class="eyebrow">Experience Timeline</p>
+          <h2>Recent work and measurable impact</h2>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-item reveal" data-delay="0">
+            <p class="timeline-period">Oct 2025 - Present</p>
+            <h3>Software Development Engineer II · Kapture CX</h3>
+            <p>
+              Led global product delivery end-to-end with Product and Design alignment, technical design ownership,
+              backend implementation, and production rollout.
+            </p>
+            <ul>
+              <li>Reduced client workflow time by up to 70 percent using guided Excel bulk upload tooling and safe validation.</li>
+              <li>Built a bulk migration microservice for Salesforce, Zendesk, Zoho, and Freshdesk onboarding with zero-downtime cutover.</li>
+              <li>Migrated storage from AWS S3 to Google Cloud Storage and lowered upload latency by 50 percent at daily million-file scale.</li>
+            </ul>
+          </article>
+
+          <article class="timeline-item reveal" data-delay="80">
+            <p class="timeline-period">Sep 2023 - Sep 2025</p>
+            <h3>Software Developer · Kapture CX</h3>
+            <p>
+              Built high-scale backend services, third-party integrations, and resilient real-time infrastructure across
+              customer-facing enterprise modules.
+            </p>
+            <ul>
+              <li>Replaced FCM with in-house WebSocket and STOMP pipeline, cutting latency by 90 percent and supporting 10,000+ events per second.</li>
+              <li>Shipped social media microservice ingesting Facebook, Instagram, WhatsApp, Google Business Profile, App Store, and X into ticketing workflows.</li>
+              <li>Owned P0 API incident triage and resolved 200+ high-priority incidents, reducing MTTR by up to 50 percent.</li>
+            </ul>
+          </article>
+
+          <article class="timeline-item reveal" data-delay="160">
+            <p class="timeline-period">Jun 2020 - Jun 2024</p>
+            <h3>B.E. Computer Science · Chitkara University, Punjab</h3>
+            <p>
+              Graduated with strong fundamentals in distributed systems and software engineering, with a CGPA of 9.89.
+            </p>
+            <ul>
+              <li>Built projects spanning backend architecture, automation workflows, and product-focused frontend applications.</li>
+              <li>Applied competitive programming and data structures training to production problem solving.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- Expertise -->
+      <section class="section container" id="expertise">
+        <div class="section-heading reveal" data-delay="0">
+          <p class="eyebrow">What I Do</p>
+          <h2>Hands-on engineering with product focus</h2>
+        </div>
+
+        <div class="expertise-grid">
+          <article class="expertise-card reveal" data-delay="0">
+            <i class="fa fa-code" aria-hidden="true"></i>
+            <h3>Backend and API Engineering</h3>
+            <p>Designing reliable backend systems and microservices with clear contracts and production-grade observability.</p>
+            <ul>
+              <li>Java 8-21 with Spring Boot and Hibernate/JPA</li>
+              <li>REST API architecture and third-party integrations</li>
+              <li>Microservices, system design, and SLA-aware delivery</li>
+            </ul>
+          </article>
+
+          <article class="expertise-card reveal" data-delay="90">
+            <i class="fa fa-cogs" aria-hidden="true"></i>
+            <h3>Realtime, Messaging, and Scale</h3>
+            <p>Building event-driven pipelines that remain stable under peak load with clear failure-handling strategies.</p>
+            <ul>
+              <li>WebSocket and STOMP real-time systems</li>
+              <li>Kafka pipelines with retry and backpressure patterns</li>
+              <li>Redis caching and latency optimization</li>
+            </ul>
+          </article>
+
+          <article class="expertise-card reveal" data-delay="180">
+            <i class="fa fa-cloud" aria-hidden="true"></i>
+            <h3>Cloud &amp; DevOps</h3>
+            <p>Shipping safely with CI/CD, containerization, and cloud services across AWS and GCP environments.</p>
+            <ul>
+              <li>Docker, Kubernetes, and Jenkins pipelines</li>
+              <li>AWS S3 and GCP Cloud Storage migrations</li>
+              <li>Production debugging, alerts, and incident response</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="stack-strip reveal" data-delay="220">
+          <span>Java</span>
+          <span>Spring Boot</span>
+          <span>Kafka</span>
+          <span>Hibernate/JPA</span>
+          <span>React</span>
+          <span>Python</span>
+          <span>PostgreSQL</span>
+          <span>MySQL</span>
+          <span>MongoDB</span>
+          <span>Elasticsearch</span>
+          <span>Redis</span>
+          <span>Docker</span>
+          <span>Kubernetes</span>
+          <span>Jenkins</span>
+          <span>AWS</span>
+          <span>GCP</span>
+        </div>
+      </section>
+
+      <!-- Projects -->
+      <section class="section container" id="projects">
+        <div class="section-heading reveal" data-delay="0">
+          <p class="eyebrow">Personal Projects</p>
+          <h2>Public builds from my website and GitHub</h2>
+        </div>
+        <p class="projects-note reveal" data-delay="40">
+          This section highlights side projects and public builds. Full-time work outcomes are shared in the Experience
+          section above.
+        </p>
+
+        <div class="project-group">
+          <h3 class="project-group-title reveal" data-delay="70">Featured Projects</h3>
+          <div class="case-grid featured-grid">
+            <article class="case-card reveal" data-delay="90">
+              <img src="images/2.png" alt="Summz summarizer project" />
+              <div class="case-copy">
+                <h3>Summz Summarizer</h3>
+                <p class="case-meta"><strong>Role:</strong> Full Stack Developer · <strong>Timeline:</strong> 2 weeks · <strong>Stack:</strong> React, Node, REST APIs</p>
+                <p class="case-label">Challenge</p>
+                <p>Long-form content takes too long to read when users only need key takeaways fast.</p>
+                <p class="case-label">Architecture</p>
+                <p>Built a clean two-step flow: input layer, summary service orchestration, and structured response rendering.</p>
+                <p class="case-label">Tradeoffs</p>
+                <p>Prioritized speed and readability over dense controls to keep first-time usage friction low.</p>
+                <p class="case-label">Outcome</p>
+                <p>Reduced reading effort and made repeat research sessions noticeably faster for daily use.</p>
+                <div class="project-actions">
+                  <a class="btn btn-primary btn-small" href="mailto:help@abharan.space?subject=Hiring%20Inquiry%20for%20Abharan%20Gupta"
+                    >Hire Me</a
+                  >
+                  <a
+                    class="btn btn-secondary btn-small"
+                    href="https://github.com/abharan2002?tab=repositories&q=Summz&type=source"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >View Code</a
+                  >
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="project-group">
+          <h3 class="project-group-title reveal" data-delay="130">Hobby Projects</h3>
+          <div class="case-grid hobby-grid">
+            <article class="case-card reveal" data-delay="150">
+              <img src="images/1.png" alt="Anime-freak project" />
+              <div class="case-copy">
+                <h3>Anime-freak</h3>
+                <p class="case-meta"><strong>Role:</strong> Frontend Developer · <strong>Timeline:</strong> 10 days · <strong>Stack:</strong> HTML, CSS, JavaScript</p>
+                <p class="case-label">Challenge</p>
+                <p>Media discovery pages can become noisy, making it hard for users to scan large catalogs quickly.</p>
+                <p class="case-label">Architecture</p>
+                <p>Structured the UI into reusable modules for hero, categories, and card views with responsive behavior.</p>
+                <p class="case-label">Tradeoffs</p>
+                <p>Chose simple client-side interactions over heavy animation to keep rendering stable on lower-end devices.</p>
+                <p class="case-label">Outcome</p>
+                <p>Improved browse flow clarity and made content discovery faster across desktop and mobile screens.</p>
+                <div class="project-actions">
+                  <a class="btn btn-primary btn-small" href="mailto:help@abharan.space?subject=Hiring%20Inquiry%20for%20Abharan%20Gupta"
+                    >Hire Me</a
+                  >
+                  <a
+                    class="btn btn-secondary btn-small"
+                    href="https://github.com/abharan2002/Anime-freak"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >View Code</a
+                  >
+                </div>
+              </div>
+            </article>
+
+            <article class="case-card reveal" data-delay="220">
+              <img src="images/3.png" alt="Travel blog page project" />
+              <div class="case-copy">
+                <h3>Travel Blog Page</h3>
+                <p class="case-meta"><strong>Role:</strong> UI Engineer · <strong>Timeline:</strong> 1 week · <strong>Stack:</strong> HTML, CSS, JavaScript</p>
+                <p class="case-label">Challenge</p>
+                <p>Content-heavy travel pages often lose readers when hierarchy and pacing are not clearly designed.</p>
+                <p class="case-label">Architecture</p>
+                <p>Designed a sectioned layout with strong heading rhythm, visual anchors, and predictable mobile breakpoints.</p>
+                <p class="case-label">Tradeoffs</p>
+                <p>Used a lightweight static setup instead of CMS complexity to keep the build easy to maintain and deploy.</p>
+                <p class="case-label">Outcome</p>
+                <p>Improved reading continuity and scroll depth, especially on mobile where long content can feel heavy.</p>
+                <div class="project-actions">
+                  <a class="btn btn-primary btn-small" href="mailto:help@abharan.space?subject=Hiring%20Inquiry%20for%20Abharan%20Gupta"
+                    >Hire Me</a
+                  >
+                  <a
+                    class="btn btn-secondary btn-small"
+                    href="https://github.com/abharan2002/Blog-Website"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >View Code</a
+                  >
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="other-projects reveal" data-delay="260">
+            <article class="mini-project">
+              <img src="images/4.png" alt="Food web page project" />
+              <h3>Food Web Page</h3>
+              <p>Conversion-first landing page with interaction cues and responsive design polish.</p>
+              <div class="mini-links">
+                <a href="mailto:help@abharan.space?subject=Hiring%20Inquiry%20for%20Abharan%20Gupta">Hire Me</a>
+                <a href="https://github.com/abharan2002/Food-website" target="_blank" rel="noopener noreferrer">GitHub</a>
+              </div>
+            </article>
+
+            <article class="mini-project">
+              <img src="images/5.png" alt="TinDog project" />
+              <h3>TinDog Project</h3>
+              <p>Modular marketing site demonstrating component-led UI structure and responsive layout control.</p>
+              <div class="mini-links">
+                <a href="mailto:help@abharan.space?subject=Hiring%20Inquiry%20for%20Abharan%20Gupta">Hire Me</a>
+                <a href="https://github.com/abharan2002/TinDog-Project" target="_blank" rel="noopener noreferrer">GitHub</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section container" id="proof">
+        <div class="section-heading reveal" data-delay="0">
+          <p class="eyebrow">Social Proof</p>
+          <h2>Shipped impact and trusted engineering stack</h2>
+        </div>
+
+        <div class="proof-grid">
+          <article class="proof-card reveal" data-delay="0">
+            <h3>Delivery Signals</h3>
+            <ul>
+              <li><strong>200+</strong> P0 incidents resolved during major failure windows</li>
+              <li><strong>50%</strong> MTTR reduction through alert-driven debugging and mitigation playbooks</li>
+              <li><strong>2x</strong> consecutive quarter Top Performer recognition</li>
+            </ul>
+          </article>
+
+          <article class="proof-card reveal" data-delay="80">
+            <h3>Trusted Stack</h3>
+            <div class="logo-strip">
+              <span><i class="fa fa-code" aria-hidden="true"></i> Java 8-21</span>
+              <span><i class="fa fa-server" aria-hidden="true"></i> Spring Boot</span>
+              <span><i class="fa fa-random" aria-hidden="true"></i> Kafka</span>
+              <span><i class="fa fa-database" aria-hidden="true"></i> PostgreSQL + MySQL</span>
+              <span><i class="fa fa-search" aria-hidden="true"></i> Elasticsearch</span>
+              <span><i class="fa fa-bolt" aria-hidden="true"></i> Redis</span>
+              <span><i class="fa fa-cube" aria-hidden="true"></i> Docker + Kubernetes</span>
+              <span><i class="fa fa-cloud" aria-hidden="true"></i> AWS + GCP</span>
+              <span><i class="fa fa-refresh" aria-hidden="true"></i> Jenkins CI/CD</span>
+            </div>
+          </article>
+
+          <article class="proof-card reveal" data-delay="160">
+            <h3>Leadership and Growth</h3>
+            <ul>
+              <li><strong>5+</strong> junior developers mentored, improving team delivery velocity by 20 percent</li>
+              <li><strong>3</strong> internal workshops led on microservices and Redis caching for 20+ engineers</li>
+              <li>Certifications: Full Stack Web Development, Ordered Data Structures, Competitive Programming</li>
+            </ul>
+            <a class="proof-link" href="https://www.linkedin.com/in/abharan/" target="_blank" rel="noopener noreferrer"
+              >See profile endorsements</a
+            >
+          </article>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section class="section container contact" id="contact">
+        <div class="contact-card reveal" data-delay="0">
+          <p class="eyebrow">Let's Connect</p>
+          <h2>Open to Backend Engineer and Full Stack Engineer opportunities</h2>
+          <p>
+            If your team cares about dependable systems and thoughtful execution, I would love to connect.
+          </p>
+
+          <div class="contact-actions">
+            <a class="btn btn-primary" href="mailto:help@abharan.space?subject=Interview%20Opportunity%20for%20Abharan%20Gupta"
+              >Hire Me</a
+            >
+            <a class="btn btn-secondary" href="https://www.linkedin.com/in/abharan/" target="_blank" rel="noopener noreferrer"
+              >LinkedIn</a
+            >
+            <a class="btn btn-secondary" href="https://github.com/abharan2002" target="_blank" rel="noopener noreferrer"
+              >GitHub</a
+            >
+          </div>
+
+          <div class="contact-links">
+            <a href="mailto:help@abharan.space"><i class="fa fa-envelope-o" aria-hidden="true"></i> help@abharan.space</a>
+            <a href="tel:+917015278294"><i class="fa fa-phone" aria-hidden="true"></i> +91 7015 278 294</a>
+            <a href="https://abharan.space" target="_blank" rel="noopener noreferrer"><i class="fa fa-globe" aria-hidden="true"></i> abharan.space</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer container">
+      <p><span id="year"></span> Abharan Gupta. Built with care and clean code.</p>
+      <a href="#top" class="back-top" aria-label="Back to top">Back to top</a>
+    </footer>
+
+    <div class="command-palette" id="command-palette" hidden>
+      <button class="command-backdrop" type="button" aria-label="Close quick navigation"></button>
+      <section class="command-dialog" role="dialog" aria-modal="true" aria-labelledby="command-title">
+        <div class="command-head">
+          <p id="command-title">Quick Navigation</p>
+          <span class="command-hint">Use / to open, Enter to run</span>
+        </div>
+        <input class="command-input" type="text" placeholder="Jump to section, link, or action..." aria-label="Search commands" />
+        <ul class="command-list" role="listbox" aria-label="Quick actions">
+          <li>
+            <button class="command-item" type="button" data-href="#about" data-keywords="about hero intro profile section">
+              <span class="command-label">About</span>
+              <span class="command-meta">Jump</span>
+            </button>
+          </li>
+          <li>
+            <button class="command-item" type="button" data-href="#experience" data-keywords="experience timeline work">
+              <span class="command-label">Experience</span>
+              <span class="command-meta">Jump</span>
+            </button>
+          </li>
+          <li>
+            <button class="command-item" type="button" data-href="#expertise" data-keywords="skills expertise stack">
+              <span class="command-label">Expertise</span>
+              <span class="command-meta">Jump</span>
+            </button>
+          </li>
+          <li>
+            <button class="command-item" type="button" data-href="#projects" data-keywords="projects portfolio work samples">
+              <span class="command-label">Projects</span>
+              <span class="command-meta">Jump</span>
+            </button>
+          </li>
+          <li>
+            <button class="command-item" type="button" data-href="#contact" data-keywords="contact reach hire">
+              <span class="command-label">Contact</span>
+              <span class="command-meta">Jump</span>
+            </button>
+          </li>
+          <li>
+            <button class="command-item" type="button" data-href="resume/Abharan_Gupta_Resume.pdf" data-external="true" data-keywords="resume cv pdf">
+              <span class="command-label">Resume</span>
+              <span class="command-meta">Open</span>
+            </button>
+          </li>
+          <li>
+            <button class="command-item" type="button" data-href="mailto:help@abharan.space?subject=Hiring%20Inquiry%20for%20Abharan%20Gupta" data-keywords="hire email opportunity">
+              <span class="command-label">Hire Me</span>
+              <span class="command-meta">Action</span>
+            </button>
+          </li>
+          <li>
+            <button class="command-item" type="button" data-href="https://www.linkedin.com/in/abharan/" data-external="true" data-keywords="linkedin social profile">
+              <span class="command-label">LinkedIn</span>
+              <span class="command-meta">Open</span>
+            </button>
+          </li>
+          <li>
+            <button class="command-item" type="button" data-href="https://github.com/abharan2002" data-external="true" data-keywords="github code repositories">
+              <span class="command-label">GitHub</span>
+              <span class="command-meta">Open</span>
+            </button>
+          </li>
+        </ul>
+      </section>
     </div>
-</div>
-<!-- end work -->
 
-<!-- start about -->
-<div id="about" class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-xs-11 wow fadeInLeft" data-wow-delay="0.9s">
-                <h2>ABOUT ME</h2>
-                <h4>FULL STACK DEVELOPER & TECH ENTHUSIAST</h4>
-                <p>I am a passionate full stack developer skilled in building scalable applications with technologies like Spring Boot, Kafka, ReactJS, and NodeJS. I enjoy solving complex problems and optimizing performance to deliver robust solutions.</p>
-                <p>I am a dedicated team player with a proven ability to take on challenges and collaborate with colleagues across all levels. Outside of work, I am a tech enthusiast and a gaming lover, always keen to explore new technologies and trends.</p>
-				<a href="https://drive.google.com/file/d/1hzhV_L4KEBrq5KiN2xAMA_qCRD4DJkKz/view?usp=drive_link" class="btn btn-default smoothScroll wow fadeInUp" data-wow-delay="1s" target="_blank">Download CV</a>
-            </div>
-            <div class="col-md-6 col-xs-11 wow fadeInRight" data-wow-delay="0.9s">
-                <span>React JS <small>85%</small></span>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%;"></div>
-                </div>
-                <span>HTML5 & CSS3 <small>90%</small></span>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;"></div>
-                </div>
-                <!-- New Skills -->
-                <span>Spring Boot <small>80%</small></span>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
-                </div>
-                <span>Kafka <small>70%</small></span>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
-                </div>
-                <span>NodeJS <small>75%</small></span>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
-                </div>
-                <span>Redis <small>85%</small></span>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%;"></div>
-                </div>
-                <span>MySQL <small>80%</small></span>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
-                </div>
-                <span>MongoDB <small>75%</small></span>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
-                </div>
-                <span>AWS S3 & GCP <small>70%</small></span>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end about -->
-<!-- start portfolio -->
-<div id="portfolio" class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2 class="wow bounce">PORTFOLIO</h2>
-            </div>
-            
-            <div class="col-md-4 col-xs-6 wow fadeIn" data-wow-delay="0.6s">
-                <a href="https://github.com/abharan2002/Anime-freak" target="_blank">
-                    <div class="portfolio-thumb">
-                        <img src="images/1.png" class="img-responsive" alt="portfolio img">
-                        <div class="portfolio-overlay">
-                            <h4>Anime-freak</h4>
-                            <h5>Author: Abharan</h5>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-md-4 col-xs-6 wow fadeIn" data-wow-delay="0.6s">
-                <a href="https://github.com/abharan2002/Summz-AI-based-Summarizer" target="_blank">
-                    <div class="portfolio-thumb">
-                        <img src="images/2.png" class="img-responsive" alt="portfolio img">
-                        <div class="portfolio-overlay">
-                            <h4>Summz-AI-based-Summarizer</h4>
-                            <h5>Author: Abharan</h5>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-md-4 col-xs-6 wow fadeIn" data-wow-delay="0.6s">
-                <a href="https://github.com/abharan2002/Blog-Website" target="_blank">
-                    <div class="portfolio-thumb">
-                        <img src="images/3.png" class="img-responsive" alt="portfolio img">
-                        <div class="portfolio-overlay">
-                            <h4>Travel Blog Page</h4>
-                            <h5>Author: Abharan</h5>
-                        </div>
-                    </div>
-                </a>
-            </div>
-			<div class="clearfix visible-md visible-lg"></div>
-            <div class="col-md-6 col-xs-6 wow fadeIn" data-wow-delay="0.6s">
-                <a href="https://github.com/abharan2002/Food-website" target="_blank">
-                    <div class="portfolio-thumb">
-                        <img src="images/4.png" class="img-responsive" alt="portfolio img">
-                        <div class="portfolio-overlay">
-                            <h4>Web Food Page</h4>
-                            <h5>Author: Abharan</h5>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-md-6 col-xs-6 wow fadeIn" data-wow-delay="0.6s">
-                <a href="https://github.com/abharan2002/TinDog-Project" target="_blank">
-                    <div class="portfolio-thumb">
-                        <img src="images/5.png" class="img-responsive" alt="portfolio img">
-                        <div class="portfolio-overlay">
-                            <h4>TinDog-Project Page</h4>
-                            <h5>Author: Abharan</h5>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-        </div>
-    </div>
-</div>
-<!-- end portfolio -->
-
-
-		<!-- start contact -->
-		<div id="contact" class="section">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-5 col-lg-offset-1 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-						<address>
-							<p class="contact-title">CONTACT ME</p>
-							<p><i class="fa fa-phone"></i> 7015-278-294</p>
-							<p><i class="fa fa-envelope-o"></i> abharan.2002@gmail.com</p>
-							<p><i class="fa fa-map-marker"></i> Bengaluru , Karnataka</p>
-						</address>
-					</div>
-					<div class="col-lg-6 col-md-6 col-xs-10 wow fadeInUp" data-wow-delay="0.6s">
-						<form role="form" method="post" action="#">
-							<input name="name" type="text" class="form-control" id="name" placeholder="Your Name">
-							<input name="email" type="email" class="form-control" id="email" placeholder="Your Email">
-							<textarea name="message" rows="5" class="form-control" id="message" placeholder="Your Message"></textarea>
-							<input name="send" type="submit" class="form-control" id="send" value="SEND ME">
-						</form>
-					</div>
-					<div class="col-md-1 col-sm-1"></div>
-				</div>
-			</div>
-		</div>
-		<!-- end contact -->
-
-		<!-- start footer -->
-		<footer>
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12 wow fadeIn" data-wow-delay="0.9s">
-						<p>Copyright &copy; 2024 Abharan Personal Profile 
-                        
-                        . Designed by Abharan</p>
-						<hr>
-						<ul class="social-icon">
-							<li><a href="#" class="fa fa-facebook"></a></li>
-							<li><a href="#" class="fa fa-twitter"></a></li>
-							<li><a href="#" class="fa fa-instagram"></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</footer>
-		<!-- end footer -->
-
-	</div>
-
-		<!-- jQuery -->
-		<script src="js/jquery.js"></script>
-		<!-- bootstrap -->
-		<script src="js/bootstrap.min.js"></script>
-		<!-- fullpage -->
-		<script src="js/jquery.fullPage.js"></script>
-		<!-- smoothScroll -->
-		<script src="js/smoothscroll.js"></script>
-		<!-- wow -->
-		<script src="js/wow.min.js"></script>
-		<!-- text rotater -->
-		<script src="js/jquery.simple-text-rotator.js"></script>
-		<!-- custom -->
-		<script src="js/custom.js"></script>
-
-	</body>
+    <script src="js/reveal-widget.js"></script>
+    <script src="js/custom.js"></script>
+  </body>
 </html>
