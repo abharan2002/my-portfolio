@@ -16,8 +16,13 @@
           if (savedTheme) {
             document.documentElement.setAttribute("data-theme", savedTheme);
           }
+
+          const savedRecruiterMode = localStorage.getItem("abharan-recruiter-mode");
+          const recruiterMode = savedRecruiterMode === "off" ? "off" : "on";
+          document.documentElement.setAttribute("data-recruiter-mode", recruiterMode);
         } catch (error) {
           // Ignore storage access failures and continue with default theme.
+          document.documentElement.setAttribute("data-recruiter-mode", "on");
         }
       })();
     </script>
@@ -28,6 +33,7 @@
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap"
       rel="stylesheet"
     />
+    <link rel="icon" href="images/hero.png" />
     <link rel="stylesheet" href="css/font-awesome.min.css" />
     <link rel="stylesheet" href="css/templatemo-style.css" />
   </head>
@@ -39,7 +45,7 @@
       <nav class="nav-wrap container">
         <a class="brand" href="#top" aria-label="Home">
           <span class="brand-mark">&lt;/&gt;</span>
-          <span class="brand-text">Abharan Gupta</span>
+          <div id="brand-namemark" class="brand-namemark" data-text="Abharan Gupta" aria-hidden="true"></div>
         </a>
 
         <ul class="nav-links">
@@ -63,6 +69,11 @@
             <span>/</span>
           </button>
 
+          <button class="recruiter-toggle" type="button" aria-label="Enable recruiter mode" aria-pressed="false">
+            <i class="fa fa-briefcase" aria-hidden="true"></i>
+            <span>Recruiter</span>
+          </button>
+
           <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
             <i class="fa fa-moon-o icon-moon" aria-hidden="true"></i>
             <i class="fa fa-sun-o icon-sun" aria-hidden="true"></i>
@@ -77,10 +88,82 @@
       </nav>
     </header>
 
+    <section class="dev-ribbon container" aria-label="Developer command strip">
+      <div class="dev-ribbon-shell">
+        <p class="dev-prompt">abharan@portfolio:~$</p>
+        <button class="dev-command" type="button" data-dev-action="jump" data-dev-target="#expertise">
+          ./skills --graph
+        </button>
+        <button class="dev-command" type="button" data-dev-action="jump" data-dev-target="#projects">
+          ./projects --featured
+        </button>
+        <button class="dev-command" type="button" data-dev-action="palette">
+          ./nav --quick
+        </button>
+        <button class="dev-command" type="button" data-dev-action="external" data-dev-target="https://github.com/abharan2002">
+          ./github --open
+        </button>
+      </div>
+      <p class="dev-ribbon-output" id="dev-ribbon-output" aria-live="polite">
+        Ready. Interactive engineering labs are available in non-recruiter mode.
+      </p>
+    </section>
+
+    <aside class="section-rail" aria-label="Section progress">
+      <ol class="section-rail-list">
+        <li>
+          <a href="#about" data-section="about">
+            <span class="rail-dot" aria-hidden="true"></span>
+            <span class="rail-label">About</span>
+          </a>
+        </li>
+        <li>
+          <a href="#now-building" data-section="now-building">
+            <span class="rail-dot" aria-hidden="true"></span>
+            <span class="rail-label">Now</span>
+          </a>
+        </li>
+        <li>
+          <a href="#experience" data-section="experience">
+            <span class="rail-dot" aria-hidden="true"></span>
+            <span class="rail-label">Experience</span>
+          </a>
+        </li>
+        <li>
+          <a href="#expertise" data-section="expertise">
+            <span class="rail-dot" aria-hidden="true"></span>
+            <span class="rail-label">Expertise</span>
+          </a>
+        </li>
+        <li>
+          <a href="#projects" data-section="projects">
+            <span class="rail-dot" aria-hidden="true"></span>
+            <span class="rail-label">Projects</span>
+          </a>
+        </li>
+        <li>
+          <a href="#proof" data-section="proof">
+            <span class="rail-dot" aria-hidden="true"></span>
+            <span class="rail-label">Proof</span>
+          </a>
+        </li>
+        <li>
+          <a href="#contact" data-section="contact">
+            <span class="rail-dot" aria-hidden="true"></span>
+            <span class="rail-label">Contact</span>
+          </a>
+        </li>
+      </ol>
+      <span class="section-rail-progress" aria-hidden="true"></span>
+    </aside>
+
     <main>
       <!-- Hero -->
       <section class="hero section container" id="about">
         <div class="hero-copy reveal" data-delay="0">
+          <div class="hero-drift" aria-hidden="true">
+            <canvas id="hero-particle-drift"></canvas>
+          </div>
           <p class="eyebrow">Backend Engineer · Full Stack Delivery</p>
           <h1>
             Building
@@ -100,6 +183,7 @@
               class="reveal-widget hero-reveal-widget"
               data-top-image="images/hero.png"
               data-bottom-image="images/hero-bg.png"
+              data-reveal-mode="circle"
               data-hover-radius="0.2"
               data-hover-softness="0.5"
               data-hover-strength="1"
@@ -163,6 +247,49 @@
           <h2>Faster release velocity</h2>
           <p>Helped teams ship faster through stronger automation and testing discipline.</p>
         </article>
+      </section>
+
+      <!-- Now Building -->
+      <section class="section container now-building" id="now-building">
+        <div class="section-heading reveal" data-delay="0">
+          <p class="eyebrow">Now Building</p>
+          <h2>Current shipping focus and active learning track</h2>
+        </div>
+
+        <div class="now-grid">
+          <article class="now-card now-card-live reveal" data-delay="40">
+            <p class="now-status"><span class="status-dot" aria-hidden="true"></span> Live this week</p>
+            <h3>Reliability guardrails for high-throughput customer workflows</h3>
+            <p>
+              Tightening retry visibility, validation paths, and failure isolation so operational teams can resolve
+              issues faster under production load.
+            </p>
+            <ul>
+              <li>Hardening bulk upload validation and rollback signals</li>
+              <li>Streamlining noisy alert paths to reduce investigation time</li>
+              <li>Improving runbook clarity for high-priority incidents</li>
+            </ul>
+          </article>
+
+          <article class="now-card reveal" data-delay="110">
+            <h3>Learning right now</h3>
+            <p>System design for resilient event-driven pipelines and better debugging ergonomics.</p>
+            <div class="now-tags">
+              <span>Event Replay Safety</span>
+              <span>Observability Patterns</span>
+              <span>Kafka Throughput Tuning</span>
+            </div>
+          </article>
+
+          <article class="now-card reveal" data-delay="180">
+            <h3>Next shipping milestone</h3>
+            <p>
+              Shipping an internal developer flow that compresses integration setup time while keeping migration quality
+              checks strict.
+            </p>
+            <p class="now-meta">Updated <span id="now-building-date"></span></p>
+          </article>
+        </div>
       </section>
 
       <!-- Experience -->
@@ -275,19 +402,33 @@
           <span>AWS</span>
           <span>GCP</span>
         </div>
+
+        <section class="skill-constellation reveal" data-delay="260" data-reveal-variant="zoom" aria-label="3D tech stack constellation">
+          <div class="constellation-head">
+            <p class="eyebrow">Interactive Lab</p>
+            <h3>3D tech stack constellation with connected production strengths</h3>
+          </div>
+          <div class="constellation-shell">
+            <div
+              id="skill-constellation-canvas"
+              class="constellation-canvas"
+              role="img"
+              aria-label="3D tech stack network graph"
+            ></div>
+            <aside class="constellation-info">
+              <p class="constellation-label">Selected Tech</p>
+              <h4 id="constellation-title">Java</h4>
+              <p id="constellation-description">
+                Primary backend language for high-throughput APIs, service orchestration, and production reliability.
+              </p>
+              <a id="constellation-link" class="constellation-link" href="#experience">See Java delivery impact</a>
+            </aside>
+          </div>
+        </section>
       </section>
 
       <!-- Projects -->
       <section class="section container" id="projects">
-        <div class="section-heading reveal" data-delay="0">
-          <p class="eyebrow">Personal Projects</p>
-          <h2>Public builds from my website and GitHub</h2>
-        </div>
-        <p class="projects-note reveal" data-delay="40">
-          This section highlights side projects and public builds. Full-time work outcomes are shared in the Experience
-          section above.
-        </p>
-
         <div class="project-group">
           <h3 class="project-group-title reveal" data-delay="70">Featured Projects</h3>
           <div class="case-grid featured-grid">
@@ -492,11 +633,24 @@
           <p id="command-title">Quick Navigation</p>
           <span class="command-hint">Use / to open, Enter to run</span>
         </div>
-        <input class="command-input" type="text" placeholder="Jump to section, link, or action..." aria-label="Search commands" />
+        <input
+          class="command-input"
+          id="command-search"
+          name="command-search"
+          type="text"
+          placeholder="Jump to section, link, or action..."
+          aria-label="Search commands"
+        />
         <ul class="command-list" role="listbox" aria-label="Quick actions">
           <li>
             <button class="command-item" type="button" data-href="#about" data-keywords="about hero intro profile section">
               <span class="command-label">About</span>
+              <span class="command-meta">Jump</span>
+            </button>
+          </li>
+          <li>
+            <button class="command-item" type="button" data-href="#now-building" data-keywords="now building current learning shipping">
+              <span class="command-label">Now Building</span>
               <span class="command-meta">Jump</span>
             </button>
           </li>
@@ -513,9 +667,21 @@
             </button>
           </li>
           <li>
+            <button class="command-item" type="button" data-href="#expertise" data-keywords="3d constellation skill graph lab">
+              <span class="command-label">Skill Constellation</span>
+              <span class="command-meta">Open</span>
+            </button>
+          </li>
+          <li>
             <button class="command-item" type="button" data-href="#projects" data-keywords="projects portfolio work samples">
               <span class="command-label">Projects</span>
               <span class="command-meta">Jump</span>
+            </button>
+          </li>
+          <li>
+            <button class="command-item" type="button" data-href="#projects" data-keywords="featured projects hobby projects portfolio work">
+              <span class="command-label">Projects View</span>
+              <span class="command-meta">Open</span>
             </button>
           </li>
           <li>
@@ -554,5 +720,9 @@
 
     <script src="js/reveal-widget.js"></script>
     <script src="js/custom.js"></script>
+    <script src="js/project-card-tilt.js"></script>
+    <script src="js/immersive-ui.js"></script>
+    <script src="js/hero-particle-drift.js"></script>
+    <script src="js/brand-namemark.js"></script>
   </body>
 </html>

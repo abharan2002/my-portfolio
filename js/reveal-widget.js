@@ -8,9 +8,16 @@
     hoverRadius: 0.18,
     hoverSoftness: 0.45,
     hoverStrength: 1,
+    revealMode: "circle",
     performanceMode: "auto",
     touchHoldMs: 220,
     maxPixelRatio: 2
+  };
+
+  const REVEAL_MODE_INDEX = {
+    circle: 0,
+    blob: 1,
+    sweep: 2
   };
 
   const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
@@ -171,6 +178,8 @@
 
       this.touchReleaseTimer = null;
       this.lastPointerType = "mouse";
+      this.contextLost = false;
+      this.isSimplified = false;
 
       this.reducedMotionQuery = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
       this.coarsePointerQuery = window.matchMedia ? window.matchMedia("(pointer: coarse)") : null;
@@ -194,10 +203,14 @@
       this.handlePointerUp = this.handlePointerUp.bind(this);
       this.handlePointerCancel = this.handlePointerCancel.bind(this);
       this.handleEnvironmentChange = this.handleEnvironmentChange.bind(this);
+      this.handleContextLost = this.handleContextLost.bind(this);
+      this.handleContextRestored = this.handleContextRestored.bind(this);
+      this.handleRecruiterModeChange = this.handleRecruiterModeChange.bind(this);
 
       this.setupRenderer();
       this.setupScene();
       this.bindEvents();
+      this.setSimplifiedMode(document.documentElement.getAttribute("data-recruiter-mode") === "on");
       this.loadTextures();
     }
 
@@ -235,6 +248,7 @@
           uRadius: { value: this.options.hoverRadius },
           uSoftness: { value: this.options.hoverSoftness },
           uStrength: { value: this.options.hoverStrength },
+          uMode: { value: REVEAL_MODE_INDEX[this.options.revealMode] ?? REVEAL_MODE_INDEX.circle },
           uPulseStrength: { value: this.qualityProfile.pulseStrength },
           uWarpStrength: { value: this.qualityProfile.warpStrength },
           uRingStrength: { value: this.qualityProfile.ringStrength },
@@ -261,6 +275,7 @@
           uniform float uRadius;
           uniform float uSoftness;
           uniform float uStrength;
+          uniform float uMode;
           uniform float uPulseStrength;
           uniform float uWarpStrength;
           uniform float uRingStrength;
@@ -296,13 +311,38 @@
             float radius = max(0.0001, uRadius + pulse);
             float feather = max(radius * max(uSoftness, 0.02), 0.0001);
 
-            // Circular reveal mask with soft edge around cursor.
-            float reveal = 1.0 - smoothstep(radius - feather, radius, dist);
+            float reveal = 0.0;
+            float mode = floor(uMode + 0.5);
+
+            if (mode < 0.5) {
+              // Circular reveal mask with soft edge around cursor.
+              reveal = 1.0 - smoothstep(radius - feather, radius, dist);
+            } else if (mode < 1.5) {
+              // Organic blob reveal with animated boundary wobble.
+              float angle = atan(pointerDeltaAspect.y, pointerDeltaAspect.x);
+              float wobble = sin(angle * 5.0 + (uTime * 2.8)) * 0.08 + cos(angle * 3.0 - (uTime * 2.1)) * 0.05;
+              float blobRadius = max(0.0001, radius * (1.0 + (wobble * uHover)));
+              float blobFeather = max(blobRadius * max(uSoftness, 0.02), 0.0001);
+              reveal = 1.0 - smoothstep(blobRadius - blobFeather, blobRadius, dist);
+            } else {
+              // Diagonal sweep reveal around cursor.
+              vec2 dir = normalize(vec2(1.0, 0.35));
+              float along = dot(pointerDeltaAspect, dir);
+              float across = dot(pointerDeltaAspect, vec2(-dir.y, dir.x));
+              float sweepHalfWidth = max(radius * 0.55, 0.01);
+              float sweepHalfLength = max(radius * 1.7, 0.035);
+              float edgeSoftness = max(feather * 0.85, 0.0001);
+              float band = 1.0 - smoothstep(sweepHalfWidth - edgeSoftness, sweepHalfWidth + edgeSoftness, abs(across));
+              float lengthMask = 1.0 - smoothstep(sweepHalfLength - edgeSoftness, sweepHalfLength + edgeSoftness, abs(along));
+              reveal = band * lengthMask;
+            }
+
             reveal *= uHover;
             reveal = clamp(reveal * uStrength, 0.0, 1.0);
 
             // Mild lens-like UV distortion for depth feel while hovering.
-            float warp = (1.0 - smoothstep(0.0, radius * 1.45, dist)) * uWarpStrength * uHover;
+            float warpBase = (mode < 1.5) ? (1.0 - smoothstep(0.0, radius * 1.45, dist)) : reveal;
+            float warp = warpBase * uWarpStrength * uHover;
             vec2 uvBottomWarped = vUv - pointerDelta * warp;
             vec2 uvBottom = coverUv(uvBottomWarped, uBottomSize, uResolution);
 
@@ -311,7 +351,10 @@
             vec4 mixedColor = mix(topColor, bottomColor, reveal);
 
             // Subtle ring accent around the reveal boundary.
-            float ring = exp(-pow((dist - radius) / max(feather * 0.65, 0.0001), 2.0)) * uRingStrength * uHover;
+            float ring = 0.0;
+            if (mode < 1.5) {
+              ring = exp(-pow((dist - radius) / max(feather * 0.65, 0.0001), 2.0)) * uRingStrength * uHover;
+            }
             mixedColor.rgb += vec3(ring * 0.75, ring * 0.95, ring * 1.1);
 
             // Match image brightness with standard sRGB display output.
@@ -337,6 +380,11 @@
       this.container.addEventListener("pointerdown", this.handlePointerDown, { passive: true });
       this.container.addEventListener("pointerup", this.handlePointerUp, { passive: true });
       this.container.addEventListener("pointercancel", this.handlePointerCancel, { passive: true });
+
+      if (this.renderer && this.renderer.domElement) {
+        this.renderer.domElement.addEventListener("webglcontextlost", this.handleContextLost, { passive: false });
+        this.renderer.domElement.addEventListener("webglcontextrestored", this.handleContextRestored, { passive: true });
+      }
 
       this.resizeObserver = new ResizeObserver((entries) => {
         for (const entry of entries) {
@@ -374,6 +422,8 @@
           this.coarsePointerQuery.addListener(this.handleEnvironmentChange);
         }
       }
+
+      document.addEventListener("portfolio:recruiter-mode-change", this.handleRecruiterModeChange);
     }
 
     handleEnvironmentChange() {
@@ -396,6 +446,53 @@
           maxPixelRatio: this.options.maxPixelRatio
         })
       );
+    }
+
+    handleContextLost(event) {
+      event.preventDefault();
+      this.contextLost = true;
+      this.clearTouchReleaseTimer();
+
+      if (this.rafId) {
+        cancelAnimationFrame(this.rafId);
+        this.rafId = null;
+      }
+
+      this.container.style.transform = "";
+      this.setState("is-error", "Graphics context paused. Restoring...");
+    }
+
+    handleContextRestored() {
+      this.contextLost = false;
+      this.setState("", "");
+      this.clock.getDelta();
+      this.requestFrame();
+    }
+
+    handleRecruiterModeChange(event) {
+      this.setSimplifiedMode(Boolean(event && event.detail && event.detail.enabled));
+    }
+
+    setSimplifiedMode(enabled) {
+      const nextState = Boolean(enabled);
+      if (nextState === this.isSimplified) {
+        return;
+      }
+
+      this.isSimplified = nextState;
+      this.container.classList.toggle("is-simplified", this.isSimplified);
+
+      this.clearTouchReleaseTimer();
+      this.hoverTarget = 0;
+      this.hoverCurrent = 0;
+      this.pointerTarget.set(0.5, 0.5);
+      this.pointerCurrent.set(0.5, 0.5);
+      this.tiltTarget.x = 0;
+      this.tiltTarget.y = 0;
+      this.tiltCurrent.x = 0;
+      this.tiltCurrent.y = 0;
+      this.container.style.transform = "";
+      this.requestFrame();
     }
 
     applyQualityProfile(nextProfile) {
@@ -620,6 +717,10 @@
     }
 
     handlePointerEnter(event) {
+      if (this.isSimplified) {
+        return;
+      }
+
       this.lastPointerType = event.pointerType || this.lastPointerType;
       this.clearTouchReleaseTimer();
       this.hoverTarget = 1;
@@ -627,6 +728,10 @@
     }
 
     handlePointerLeave() {
+      if (this.isSimplified) {
+        return;
+      }
+
       if (this.lastPointerType === "touch" || this.isCoarsePointer) {
         this.scheduleTouchRelease();
       } else {
@@ -639,6 +744,10 @@
     }
 
     handlePointerDown(event) {
+      if (this.isSimplified) {
+        return;
+      }
+
       this.lastPointerType = event.pointerType || this.lastPointerType;
       this.clearTouchReleaseTimer();
       if (this.updatePointerFromEvent(event)) {
@@ -648,6 +757,10 @@
     }
 
     handlePointerMove(event) {
+      if (this.isSimplified) {
+        return;
+      }
+
       this.lastPointerType = event.pointerType || this.lastPointerType;
       this.clearTouchReleaseTimer();
       if (this.updatePointerFromEvent(event)) {
@@ -657,6 +770,10 @@
     }
 
     handlePointerUp(event) {
+      if (this.isSimplified) {
+        return;
+      }
+
       this.lastPointerType = event.pointerType || this.lastPointerType;
       if (this.lastPointerType === "touch" || this.isCoarsePointer) {
         this.scheduleTouchRelease();
@@ -664,6 +781,10 @@
     }
 
     handlePointerCancel(event) {
+      if (this.isSimplified) {
+        return;
+      }
+
       this.lastPointerType = event.pointerType || this.lastPointerType;
       this.scheduleTouchRelease();
       this.tiltTarget.x = 0;
@@ -672,6 +793,26 @@
     }
 
     renderFrame(deltaSeconds) {
+      if (this.isSimplified) {
+        this.pointerTarget.set(0.5, 0.5);
+        this.pointerCurrent.copy(this.pointerTarget);
+        this.hoverTarget = 0;
+        this.hoverCurrent = 0;
+        this.tiltTarget.x = 0;
+        this.tiltTarget.y = 0;
+        this.tiltCurrent.x = 0;
+        this.tiltCurrent.y = 0;
+        this.container.style.transform = "";
+
+        this.material.uniforms.uPointer.value.copy(this.pointerCurrent);
+        this.material.uniforms.uHover.value = 0;
+        this.material.uniforms.uTime.value += deltaSeconds;
+
+        this.renderer.setRenderTarget(null);
+        this.renderer.render(this.scene, this.camera);
+        return false;
+      }
+
       if (this.qualityProfile.instantMotion) {
         this.pointerCurrent.copy(this.pointerTarget);
         this.hoverCurrent = this.hoverTarget;
@@ -725,7 +866,7 @@
     tick() {
       this.rafId = null;
 
-      if (this.disposed || !this.isVisible) {
+      if (this.disposed || !this.isVisible || this.contextLost) {
         return;
       }
 
@@ -751,6 +892,11 @@
       this.container.removeEventListener("pointerup", this.handlePointerUp);
       this.container.removeEventListener("pointercancel", this.handlePointerCancel);
 
+      if (this.renderer && this.renderer.domElement) {
+        this.renderer.domElement.removeEventListener("webglcontextlost", this.handleContextLost);
+        this.renderer.domElement.removeEventListener("webglcontextrestored", this.handleContextRestored);
+      }
+
       if (this.resizeObserver) {
         this.resizeObserver.disconnect();
       }
@@ -773,6 +919,8 @@
           this.coarsePointerQuery.removeListener(this.handleEnvironmentChange);
         }
       }
+
+      document.removeEventListener("portfolio:recruiter-mode-change", this.handleRecruiterModeChange);
 
       this.clearTouchReleaseTimer();
 
@@ -815,6 +963,11 @@
     const softnessFallback = parseNumber(dataset.brushSoftness, DEFAULTS.hoverSoftness);
     const strengthFallback = parseNumber(dataset.brushStrength, DEFAULTS.hoverStrength);
 
+    const revealModeRaw = parseString(dataset.revealMode, DEFAULTS.revealMode).toLowerCase();
+    const revealMode = Object.prototype.hasOwnProperty.call(REVEAL_MODE_INDEX, revealModeRaw)
+      ? revealModeRaw
+      : DEFAULTS.revealMode;
+
     const performanceModeRaw = parseString(dataset.performanceMode, DEFAULTS.performanceMode).toLowerCase();
     const performanceMode = ["auto", "high", "low"].includes(performanceModeRaw) ? performanceModeRaw : DEFAULTS.performanceMode;
 
@@ -824,6 +977,7 @@
       hoverRadius: clamp(parseNumber(dataset.hoverRadius, radiusFallback), 0.06, 0.42),
       hoverSoftness: clamp(parseNumber(dataset.hoverSoftness, softnessFallback), 0.08, 0.95),
       hoverStrength: clamp(parseNumber(dataset.hoverStrength, strengthFallback), 0.35, 1.25),
+      revealMode,
       performanceMode,
       touchHoldMs: clamp(parseNumber(dataset.touchHoldMs, DEFAULTS.touchHoldMs), 80, 1200),
       maxPixelRatio: DEFAULTS.maxPixelRatio
