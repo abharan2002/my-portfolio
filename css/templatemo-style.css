@@ -663,6 +663,9 @@ a {
 .hero-reveal-widget {
   aspect-ratio: 16 / 10;
   min-height: clamp(230px, 34vh, 420px);
+  background-image: url("../images/hero.png");
+  background-size: cover;
+  background-position: center;
 }
 
 .hero-actions-panel {

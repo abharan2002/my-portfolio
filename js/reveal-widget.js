@@ -1,5 +1,6 @@
 (() => {
   let THREE = null;
+  let threeLoadPromise = null;
 
   // Default settings for the hover reveal widget.
   const DEFAULTS = {
@@ -143,7 +144,30 @@
     image.draggable = false;
     image.decoding = "async";
     image.loading = "eager";
+    image.fetchPriority = "high";
     node.appendChild(image);
+  };
+
+  const isRecruiterModeEnabled = () => document.documentElement.getAttribute("data-recruiter-mode") === "on";
+
+  const ensureThreeModule = async () => {
+    if (THREE) {
+      return THREE;
+    }
+
+    if (!threeLoadPromise) {
+      threeLoadPromise = import("https://unpkg.com/three@0.160.1/build/three.module.js")
+        .then((module) => {
+          THREE = module;
+          return module;
+        })
+        .catch((error) => {
+          threeLoadPromise = null;
+          throw error;
+        });
+    }
+
+    return threeLoadPromise;
   };
 
   class HoverRevealWidget {
@@ -985,7 +1009,7 @@
   };
 
   const boot = async () => {
-    const widgetNodes = document.querySelectorAll(".reveal-widget");
+    const widgetNodes = Array.from(document.querySelectorAll(".reveal-widget"));
     if (!widgetNodes.length) {
       return;
     }
@@ -1001,28 +1025,75 @@
       return;
     }
 
-    if (!THREE) {
-      try {
-        THREE = await import("https://unpkg.com/three@0.160.1/build/three.module.js");
-      } catch (error) {
-        widgetNodes.forEach((node) => {
-          const options = buildOptions(node);
-          applyStaticWidgetFallback(node, options.topImage, "");
-        });
-        return;
-      }
-    }
-
-    widgetNodes.forEach((node) => {
+    const bootInteractiveWidget = async (node) => {
       const options = buildOptions(node);
+
       if (!hasWebGL) {
         applyStaticWidgetFallback(node, options.topImage, "");
+        node.dataset.revealDeferred = "false";
         return;
       }
+
+      try {
+        await ensureThreeModule();
+      } catch (error) {
+        applyStaticWidgetFallback(node, options.topImage, "");
+        node.dataset.revealDeferred = "false";
+        return;
+      }
+
+      if (node.revealWidget) {
+        return;
+      }
+
+      node.classList.remove("is-static", "is-file-fallback", "is-loading", "is-error");
+      node.removeAttribute("data-state-message");
+      node.textContent = "";
 
       // Expose instance for quick tuning from DevTools.
       node.revealWidget = new HoverRevealWidget(node, options);
+      node.dataset.revealDeferred = "false";
+    };
+
+    const applyRecruiterStaticMode = () => {
+      widgetNodes.forEach((node) => {
+        if (node.revealWidget) {
+          node.revealWidget.setSimplifiedMode(true);
+          return;
+        }
+
+        const options = buildOptions(node);
+        applyStaticWidgetFallback(node, options.topImage, "");
+        node.dataset.revealDeferred = "true";
+      });
+    };
+
+    const hydrateDeferredWidgets = () => {
+      widgetNodes.forEach((node) => {
+        if (node.dataset.revealDeferred === "true") {
+          void bootInteractiveWidget(node);
+        } else if (node.revealWidget) {
+          node.revealWidget.setSimplifiedMode(false);
+        }
+      });
+    };
+
+    document.addEventListener("portfolio:recruiter-mode-change", (event) => {
+      const enabled = Boolean(event && event.detail && event.detail.enabled);
+      if (enabled) {
+        applyRecruiterStaticMode();
+        return;
+      }
+
+      hydrateDeferredWidgets();
     });
+
+    if (isRecruiterModeEnabled()) {
+      applyRecruiterStaticMode();
+      return;
+    }
+
+    await Promise.all(widgetNodes.map((node) => bootInteractiveWidget(node)));
   };
 
   if (document.readyState === "loading") {
